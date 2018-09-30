@@ -3,8 +3,6 @@ package com.example.vladimir.navigation
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentTransaction
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
@@ -18,8 +16,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var frProfile: ProfileFragment
     private lateinit var frGalery: Fragment
     private lateinit var frTools: Fragment
-    private lateinit var manager: FragmentManager
-    private lateinit var transaction: FragmentTransaction
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +28,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         frProfile = ProfileFragment()
         frGalery = GaleryFragment()
         frTools = ToolsFragment()
-        manager = supportFragmentManager
         nav_view.setNavigationItemSelectedListener(this)
     }
 
@@ -53,23 +48,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
-        transaction = manager.beginTransaction()
+        val transaction = supportFragmentManager.beginTransaction()
         when (id) {
             R.id.nav_gallery -> {
                 transaction.replace(R.id.container, frGalery, GaleryFragment.TAG)
-                transaction.addToBackStack(null)
-
-
+                transaction.addToBackStack(GaleryFragment.TAG)
             }
             R.id.nav_profile -> {
                 transaction.replace(R.id.container, frProfile, ProfileFragment.TAG)
-                transaction.addToBackStack(null)
-
-
+                transaction.addToBackStack(ProfileFragment.TAG)
             }
             R.id.nav_manage -> {
                 transaction.replace(R.id.container, frTools, ToolsFragment.TAG)
-                transaction.addToBackStack(null)
+                transaction.addToBackStack(ToolsFragment.TAG)
             }
         }
         transaction.commit()
@@ -80,8 +71,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun callback(login: String, email: String) {
         frProfile.saveData(login, email)
-        tv_Hlogin.text = login
-        tv_Hemail.text = email
+        tv_h_login.text = login
+        tv_h_email.text = email
     }
 
 }
