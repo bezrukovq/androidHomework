@@ -4,7 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-public class ItemInfo extends AppCompatActivity {
+public class ItemInfoActivity extends AppCompatActivity {
 
     TextView name;
     TextView description;

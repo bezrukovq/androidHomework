@@ -1,32 +1,23 @@
 package com.example.vladimir.recyclerview;
 
-import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private ArrayList<City> myList;
+    private CallMain callMain;
 
     public MyAdapter(ArrayList<City> myList) {
         this.myList = myList;
-    }
-
-    class MyViewHolder extends RecyclerView.ViewHolder {
-        View mView;
-
-        public MyViewHolder(@NonNull View itemView) {
-            super(itemView);
-            mView = itemView;
-        }
     }
 
     @NonNull
@@ -34,42 +25,32 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public MyAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.item_view, viewGroup, false);
+        callMain=(CallMain)v.getContext();
         return new MyViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder viewHolder, int i) {
-        final TextView name;
-        final TextView description;
-        ImageView icon;
-        RelativeLayout cl;
-        name = viewHolder.mView.findViewById(R.id.tv_name);
-        description = viewHolder.mView.findViewById(R.id.tv_description);
-        icon = viewHolder.mView.findViewById(R.id.iv_icon);
-        cl = viewHolder.mView.findViewById(R.id.cl_item);
-        cl.setOnClickListener(new View.OnClickListener() {
+        viewHolder.cl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(viewHolder.mView.getContext(), ItemInfo.class);
-                intent.putExtra("name", name.getText().toString());
-                intent.putExtra("description", description.getText().toString());
-                viewHolder.mView.getContext().startActivity(intent);
+                callMain.callback(viewHolder.tvName.getText().toString(),viewHolder.description.getText().toString());
             }
         });
-        name.setText(myList.get(i).getName());
-        description.setText(myList.get(i).getContext());
+        viewHolder.tvName.setText(myList.get(i).getName());
+        viewHolder.description.setText(myList.get(i).getContext());
         switch (i % 4) {
             case 0:
-                icon.setImageDrawable(ContextCompat.getDrawable(viewHolder.mView.getContext(), R.drawable.chrome));
+                viewHolder.icon.setImageDrawable(ContextCompat.getDrawable(viewHolder.mView.getContext(), R.drawable.chrome));
                 break;
             case 1:
-                icon.setImageDrawable(ContextCompat.getDrawable(viewHolder.mView.getContext(), R.drawable.realm));
+                viewHolder.icon.setImageDrawable(ContextCompat.getDrawable(viewHolder.mView.getContext(), R.drawable.realm));
                 break;
             case 2:
-                icon.setImageDrawable(ContextCompat.getDrawable(viewHolder.mView.getContext(), R.drawable.andr));
+                viewHolder.icon.setImageDrawable(ContextCompat.getDrawable(viewHolder.mView.getContext(), R.drawable.andr));
                 break;
             case 3:
-                icon.setImageDrawable(ContextCompat.getDrawable(viewHolder.mView.getContext(), R.drawable.idea));
+                viewHolder.icon.setImageDrawable(ContextCompat.getDrawable(viewHolder.mView.getContext(), R.drawable.idea));
                 break;
         }
     }
@@ -77,5 +58,22 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @Override
     public int getItemCount() {
         return myList.size();
+    }
+
+    class MyViewHolder extends RecyclerView.ViewHolder {
+        View mView;
+        TextView tvName;
+        TextView description;
+        ImageView icon;
+        ConstraintLayout cl;
+
+        public MyViewHolder(@NonNull View itemView) {
+            super(itemView);
+            mView = itemView;
+            tvName = mView.findViewById(R.id.tv_name);
+            description = mView.findViewById(R.id.tv_description);
+            icon = mView.findViewById(R.id.iv_icon);
+            cl = mView.findViewById(R.id.cl_item);
+        }
     }
 }
