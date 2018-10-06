@@ -44,6 +44,5 @@ public class MainActivity extends AppCompatActivity implements CallMain {
         intent.putExtra("name", name);
         intent.putExtra("description", description);
         startActivity(intent);
-
     }
 }
