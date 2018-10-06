@@ -1,5 +1,6 @@
 package com.example.vladimir.recyclerview;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
@@ -16,8 +17,9 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private ArrayList<City> myList;
     private CallMain callMain;
 
-    public MyAdapter(ArrayList<City> myList) {
+    public MyAdapter(ArrayList<City> myList, Context context) {
         this.myList = myList;
+        callMain = (CallMain) context;
     }
 
     @NonNull
@@ -25,16 +27,15 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public MyAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.item_view, viewGroup, false);
-        callMain=(CallMain)v.getContext();
         return new MyViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder viewHolder, int i) {
-        viewHolder.cl.setOnClickListener(new View.OnClickListener() {
+        viewHolder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callMain.callback(viewHolder.tvName.getText().toString(),viewHolder.description.getText().toString());
+                callMain.callback(viewHolder.tvName.getText().toString(), viewHolder.description.getText().toString());
             }
         });
         viewHolder.tvName.setText(myList.get(i).getName());
@@ -61,11 +62,10 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        View mView;
         TextView tvName;
         TextView description;
         ImageView icon;
-        ConstraintLayout cl;
+        View mView;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -73,7 +73,6 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             tvName = mView.findViewById(R.id.tv_name);
             description = mView.findViewById(R.id.tv_description);
             icon = mView.findViewById(R.id.iv_icon);
-            cl = mView.findViewById(R.id.cl_item);
         }
     }
 }

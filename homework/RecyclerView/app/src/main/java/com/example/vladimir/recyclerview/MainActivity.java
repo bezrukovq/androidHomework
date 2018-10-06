@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity implements CallMain {
         RecyclerView mRecyclerView = findViewById(R.id.my_recycler_view);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        RecyclerView.Adapter mAdapter = new MyAdapter(getMyList());
+        RecyclerView.Adapter mAdapter = new MyAdapter(getMyList(), this);
         mRecyclerView.setAdapter(mAdapter);
     }
 
