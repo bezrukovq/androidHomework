@@ -26,5 +26,4 @@ public class PageFragment extends Fragment {
         tvPage.setText("Page " + getArguments().getInt(ARGUMENT_PAGE_NUMBER));
         return view;
     }
-
 }
