@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
                         tr.replace(R.id.container, viewPFragment);
                         break;
                 }
-                item.setChecked(true);
                 tr.commit();
                 return true;
             }
