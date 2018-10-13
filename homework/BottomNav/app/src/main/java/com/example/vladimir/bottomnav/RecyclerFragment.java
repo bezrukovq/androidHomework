@@ -50,7 +50,7 @@ public class RecyclerFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         ArrayList<App> a = getMyList();
         switch (item.getItemId()) {
-            case R.id.action_by_name:
+            case R.id.action_by_id:
                 Collections.sort(a, new Comparator<App>() {
                     @Override
                     public int compare(App app, App app2) {
@@ -60,7 +60,7 @@ public class RecyclerFragment extends Fragment {
                 appAdapter.submitList(a);
                 Toast.makeText(getContext(), "ID", Toast.LENGTH_LONG).show();
                 break;
-            case R.id.action_by_pop:
+            case R.id.action_by_name:
                 Collections.sort(a, new Comparator<App>() {
                     @Override
                     public int compare(App app, App t1) {

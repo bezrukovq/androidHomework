@@ -7,7 +7,7 @@
         android:title="by name"
         app:showAsAction="always" />
     <item
-        android:id="@+id/action_by_pop"
+        android:id="@+id/action_by_id"
         android:icon="@drawable/ic_dashboard_black_24dp"
         android:title="by pop"
         app:showAsAction="always" />
