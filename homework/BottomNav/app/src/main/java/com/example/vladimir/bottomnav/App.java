@@ -3,14 +3,14 @@ package com.example.vladimir.bottomnav;
 public class App {
 
     private String name;
-    private int rate;
+    private int id;
     private String context;
     private int imgID;
 
-    public App(int imgID, String name, int rate, String context) {
+    public App(int imgID, String name, int id, String context) {
         this.name = name;
         this.imgID = imgID;
-        this.rate = rate;
+        this.id = id;
         this.context = context;
     }
 
@@ -18,8 +18,8 @@ public class App {
         return imgID;
     }
 
-    public int getRate() {
-        return rate;
+    public int getId() {
+        return id;
     }
 
     public String getName() {

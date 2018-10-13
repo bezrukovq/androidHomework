@@ -1,6 +1,5 @@
 package com.example.vladimir.bottomnav;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 public class PageFragment extends Fragment {
 
     static final String ARGUMENT_PAGE_NUMBER = "arg_page_number";
-    int pageNumber;
 
     static PageFragment newInstance(int page) {
         PageFragment pageFragment = new PageFragment();
@@ -22,16 +20,11 @@ public class PageFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        pageNumber = getArguments().getInt(ARGUMENT_PAGE_NUMBER);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_for_viewp, container, false);
         TextView tvPage = view.findViewById(R.id.tv_v);
-        tvPage.setText("Page " + pageNumber);
+        tvPage.setText("Page " + getArguments().getInt(ARGUMENT_PAGE_NUMBER));
         return view;
     }
+
 }

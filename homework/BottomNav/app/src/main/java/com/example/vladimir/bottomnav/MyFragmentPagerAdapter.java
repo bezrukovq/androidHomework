@@ -4,38 +4,35 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
-    PageFragment f1;
-    PageFragment f2;
-    PageFragment f3;
+
+    private final List<Fragment> fragments = new ArrayList<>();
 
     public MyFragmentPagerAdapter(FragmentManager fm) {
         super(fm);
-        f1 = PageFragment.newInstance(0);
-        f2 = PageFragment.newInstance(1);
-        f3 = PageFragment.newInstance(2);
     }
+
+    public void add(Fragment fragment){
+        fragments.add(fragment);
+    }
+
 
     @Override
     public Fragment getItem(int position) {
-        switch (position) {
-            case 0:
-                return f1;
-            case 1:
-                return f2;
-            case 2:
-                return f3;
-        }
-        return null;
+        return fragments.get(position);
     }
 
     @Override
     public int getCount() {
-        return 3;
+        return fragments.size();
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
         return "Page " + position;
     }
+
 }

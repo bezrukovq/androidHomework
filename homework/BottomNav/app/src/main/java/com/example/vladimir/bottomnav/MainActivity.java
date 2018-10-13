@@ -9,17 +9,17 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EmptyFragment eF;
-    private RecyclerFragment rF;
-    private ViewPFragment vF;
+    private EmptyFragment emptyFragment;
+    private RecyclerFragment recyclerFragment;
+    private ViewPFragment viewPFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        eF = new EmptyFragment();
-        vF = new ViewPFragment();
-        rF = new RecyclerFragment();
+        emptyFragment = new EmptyFragment();
+        viewPFragment = new ViewPFragment();
+        recyclerFragment = new RecyclerFragment();
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -27,21 +27,20 @@ public class MainActivity extends AppCompatActivity {
                 FragmentTransaction tr = getSupportFragmentManager().beginTransaction();
                 switch (item.getItemId()) {
                     case R.id.nav_recycler:
-                        item.setChecked(true);
-                        tr.replace(R.id.container, rF);
+                        tr.replace(R.id.container, recyclerFragment);
                         break;
                     case R.id.nav_empty:
-                        item.setChecked(true);
-                        tr.replace(R.id.container, eF);
+                        tr.replace(R.id.container, emptyFragment);
                         break;
                     case R.id.nav_pager:
-                        tr.replace(R.id.container, vF);
-                        item.setChecked(true);
+                        tr.replace(R.id.container, viewPFragment);
                         break;
                 }
+                item.setChecked(true);
                 tr.commit();
-                return false;
+                return true;
             }
         });
     }
+
 }
