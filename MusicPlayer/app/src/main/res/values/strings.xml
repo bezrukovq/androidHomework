@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Music Player</string>
+    <string-array name="app_themes">
+        <item>Yellow</item>
+        <item>Dark</item>
+        <item>White</item>
+    </string-array>
 </resources>

@@ -1,24 +1,36 @@
 package com.example.vladimir.musicplayer;
 
+import android.app.Service;
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
+import android.os.Binder;
+import android.os.IBinder;
+import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
 
-public class MusicPlayer {
+public class MusicPlayer extends Service {
     ArrayList<Track> tracks;
     int curr;
     Callback callback;
     MediaPlayer mp;
+    MBinder binder = new MBinder();
 
-    public MusicPlayer(ArrayList<Track> tracks,Callback where, int curr) {
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    public void init(Callback callback, ArrayList<Track> tracks, int curr) {
         this.tracks = tracks;
+        this.callback = callback;
         this.curr = curr;
-        this.callback = where;
+        start();
     }
 
     public void start() {
-        mp = MediaPlayer.create((Context) callback, tracks.get(curr).getId());
+        mp = MediaPlayer.create(this, tracks.get(curr).getId());
         mp.start();
         mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
@@ -32,14 +44,15 @@ public class MusicPlayer {
         curr++;
         curr = curr == tracks.size() ? 0 : curr;
         callback.cb(curr);
-        mp.stop();
+        mp.release();
         start();
     }
 
     public void pre() {
         curr--;
         curr = curr == -1 ? tracks.size() - 1 : curr;
-        mp.stop();
+        callback.cb(curr);
+        mp.release();
         start();
     }
 
@@ -52,6 +65,18 @@ public class MusicPlayer {
     }
 
     public void stop() {
-        mp.stop();
+        mp.release();
+    }
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return binder;
+    }
+
+    public class MBinder extends Binder {
+        public MusicPlayer getService() {
+            return MusicPlayer.this;
+        }
     }
 }

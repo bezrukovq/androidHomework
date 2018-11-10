@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <ListPreference
+        android:key="theme"
+        android:title="Themes"
+        android:summary="pick another theme here"
+        android:entries="@array/app_themes"
+        android:entryValues="@array/app_themes"
+        android:dialogTitle="dialogTitle"
+        android:defaultValue="White"/>
+
+    <!-- android:entries="@array/pref_syncConnectionTypes_entries"
+     android:entryValues="@array/pref_syncConnectionTypes_values"-->
+
+</PreferenceScreen>
