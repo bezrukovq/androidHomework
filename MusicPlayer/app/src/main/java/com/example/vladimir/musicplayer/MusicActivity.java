@@ -1,34 +1,21 @@
 package com.example.vladimir.musicplayer;
 
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
-import android.media.RingtoneManager;
-import android.net.Uri;
-import android.os.Binder;
-import android.os.Build;
 import android.os.IBinder;
-import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.preference.PreferenceManager;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RemoteViews;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-
-import static android.app.PendingIntent.FLAG_CANCEL_CURRENT;
 
 public class MusicActivity extends AppCompatActivity implements Callback, ServiceConnection, SharedPreferences.OnSharedPreferenceChangeListener {
     Button pre;
@@ -37,13 +24,8 @@ public class MusicActivity extends AppCompatActivity implements Callback, Servic
     TextView tvName;
     TextView tvSinger;
     int curr;
-    MusicPlayer mp;
+    MusicPlayerService mp;
     ArrayList<Track> tracks = MainActivity.getMyList();
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +64,7 @@ public class MusicActivity extends AppCompatActivity implements Callback, Servic
         SharedPreferences prefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         prefs.registerOnSharedPreferenceChangeListener(this);
-        Intent intent = new Intent(this, MusicPlayer.class);
+        Intent intent = new Intent(this, MusicPlayerService.class);
         startService(intent);
         bindService(intent, this, Context.BIND_AUTO_CREATE);
     }
@@ -95,7 +77,7 @@ public class MusicActivity extends AppCompatActivity implements Callback, Servic
     }
 
     @Override
-    public void cb(int id) {
+    public void songClick(int id) {
         curr = id;
         update();
     }
@@ -144,7 +126,7 @@ public class MusicActivity extends AppCompatActivity implements Callback, Servic
 
     @Override
     public void onServiceConnected(ComponentName name, IBinder service) {
-        MusicPlayer.MBinder b = (MusicPlayer.MBinder) service;
+        MusicPlayerService.MBinder b = (MusicPlayerService.MBinder) service;
         mp = b.getService();
         mp.init(this, tracks, curr);
     }

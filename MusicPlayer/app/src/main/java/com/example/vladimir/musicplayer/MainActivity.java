@@ -1,20 +1,14 @@
 package com.example.vladimir.musicplayer;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.MediaPlayer;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import java.util.ArrayList;
 
@@ -28,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements Callback, SharedP
         /*Toolbar mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mActionBarToolbar);*/
         setContentView(R.layout.activity_main);
-        RecyclerView mRecyclerView = findViewById(R.id.rv);
+        RecyclerView mRecyclerView = findViewById(R.id.rv_songs);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         appAdapter = new TrackAdapter(new AppListDiffCallback(), this);
@@ -59,12 +53,10 @@ public class MainActivity extends AppCompatActivity implements Callback, SharedP
     }
 
     @Override
-    public void cb(int id) {
-        setTheme(R.style.Yellow);
+    public void songClick(int id) {
         Intent intent = new Intent(this, MusicActivity.class);
         intent.putExtra("id", id);
         startActivity(intent);
-
     }
 
     @Override

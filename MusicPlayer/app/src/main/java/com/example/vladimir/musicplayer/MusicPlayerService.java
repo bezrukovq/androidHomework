@@ -1,7 +1,6 @@
 package com.example.vladimir.musicplayer;
 
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Binder;
@@ -10,7 +9,7 @@ import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
 
-public class MusicPlayer extends Service {
+public class MusicPlayerService extends Service {
     ArrayList<Track> tracks;
     int curr;
     Callback callback;
@@ -20,6 +19,7 @@ public class MusicPlayer extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        mp.release();
     }
 
     public void init(Callback callback, ArrayList<Track> tracks, int curr) {
@@ -43,7 +43,7 @@ public class MusicPlayer extends Service {
     public void next() {
         curr++;
         curr = curr == tracks.size() ? 0 : curr;
-        callback.cb(curr);
+        callback.songClick(curr);
         mp.release();
         start();
     }
@@ -51,7 +51,7 @@ public class MusicPlayer extends Service {
     public void pre() {
         curr--;
         curr = curr == -1 ? tracks.size() - 1 : curr;
-        callback.cb(curr);
+        callback.songClick(curr);
         mp.release();
         start();
     }
@@ -75,8 +75,8 @@ public class MusicPlayer extends Service {
     }
 
     public class MBinder extends Binder {
-        public MusicPlayer getService() {
-            return MusicPlayer.this;
+        public MusicPlayerService getService() {
+            return MusicPlayerService.this;
         }
     }
 }

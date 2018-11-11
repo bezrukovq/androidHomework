@@ -11,13 +11,12 @@ import android.widget.TextView;
 
 public class TrackAdapter extends ListAdapter<Track, TrackAdapter.TrackHolder> {
 
-    Callback ctx;
+    Callback callback;
 
     protected TrackAdapter(@NonNull DiffUtil.ItemCallback<Track> diffCallback, Callback callback) {
         super(diffCallback);
-        ctx = callback;
+        this.callback = callback;
     }
-
 
     @NonNull
     @Override
@@ -32,7 +31,7 @@ public class TrackAdapter extends ListAdapter<Track, TrackAdapter.TrackHolder> {
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ctx.cb(viewHolder.id);
+                callback.songClick(viewHolder.id);
             }
         });
         viewHolder.tvName.setText(getItem(position).getName());
@@ -43,29 +42,11 @@ public class TrackAdapter extends ListAdapter<Track, TrackAdapter.TrackHolder> {
         TextView tvName;
         TextView description;
         int id;
-        View view;
 
         public TrackHolder(View itemView) {
             super(itemView);
-            view = itemView;
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    /*MediaPlayer mp = MediaPlayer.create(,R.raw.fr);
-                    mp.start();
-                    mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                        @Override
-                        public void onCompletion(MediaPlayer mp) {
-                            mp = MediaPlayer.create(MainActivity.this,R.raw.bh);
-                            mp.start();
-                        }
-                    });*/
-                    //   Toast.makeText();
-                }
-            });
-            tvName = view.findViewById(R.id.tv_name);
-            description = view.findViewById(R.id.tv_description);
-
+            tvName = itemView.findViewById(R.id.tv_name);
+            description = itemView.findViewById(R.id.tv_description);
         }
     }
 }
