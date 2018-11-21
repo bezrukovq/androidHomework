@@ -69,23 +69,21 @@ public class RecyclerFragment extends Fragment {
                 }).create();
         dialog.show();
         ProgressBar pb = dialog.findViewById(R.id.pb_dialog);
-        Observable<App> observable = Observable.fromIterable(getMyList());
-        observable
-                .take(12)
-                .doOnNext(itm -> {
-                    itm.setName(itm.getName() + itm.getName().length());
-                    pb.setProgress(pb.getProgress() + 1); });
         switch (item.getItemId()) {
             case R.id.action_by_id:
-                observable.toSortedList((p1,p2)-> p1.getId()-p2.getId())
-                        .subscribe(list-> a= (ArrayList<App>) list);
-                appAdapter.submitList(a);
+                Observable.fromIterable(getMyList()).take(12)
+                        .doOnNext(itm -> {
+                            itm.setName(itm.getName() + itm.getName().length());
+                            pb.setProgress(pb.getProgress() + 1); }).toSortedList((p1,p2)-> p1.getId()-p2.getId())
+                        .subscribe(list-> appAdapter.submitList(list));
                 Toast.makeText(getContext(), "ID", Toast.LENGTH_LONG).show();
                 break;
             case R.id.action_by_name:
-                observable.toSortedList((p1,p2)-> p1.getName().compareTo(p2.getName()))
-                        .subscribe(list-> a= (ArrayList<App>) list);
-                appAdapter.submitList(a);
+                Observable.fromIterable(getMyList()).take(12)
+                        .doOnNext(itm -> {
+                            itm.setName(itm.getName() + itm.getName().length());
+                            pb.setProgress(pb.getProgress() + 1); }).toSortedList((p1,p2)-> p1.getName().compareTo(p2.getName()))
+                        .subscribe(list-> appAdapter.submitList(list));
                 Toast.makeText(getContext(), "NAME", Toast.LENGTH_LONG).show();
                 break;
         }
