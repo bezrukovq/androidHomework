@@ -66,11 +66,8 @@ class MusicActivity : AppCompatActivity(), Callback, ServiceConnection, SharedPr
         mp?.init(this, tracks, curr)
     }
 
-    override fun onServiceDisconnected(name: ComponentName) {
-        unbindService(this)
-    }
+    override fun onServiceDisconnected(name: ComponentName) = unbindService(this)
 
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
-        recreate()
-    }
+
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) = recreate()
 }

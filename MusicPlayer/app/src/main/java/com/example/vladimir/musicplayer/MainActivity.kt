@@ -39,7 +39,6 @@ class MainActivity : AppCompatActivity(), Callback, SharedPreferences.OnSharedPr
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) = recreate()
 
-
     companion object {
         val myList: ArrayList<Track>
             get() {
