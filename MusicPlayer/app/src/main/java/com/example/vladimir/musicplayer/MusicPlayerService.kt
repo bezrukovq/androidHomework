@@ -4,16 +4,14 @@ import android.app.Service
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Binder
-import android.os.IBinder
-
-import java.util.ArrayList
+import java.util.*
 
 class MusicPlayerService : Service() {
-    internal var tracks: ArrayList<Track>
-    internal var curr: Int = 0
-    internal var callback: Callback
-    internal var mp: MediaPlayer
-    internal var binder = MBinder()
+    private lateinit var tracks: ArrayList<Track>
+    private var curr: Int = 0
+    private lateinit var callback: Callback
+    private lateinit var mp: MediaPlayer
+    private var binder = MBinder()
 
     override fun onDestroy() {
         super.onDestroy()
@@ -61,9 +59,7 @@ class MusicPlayerService : Service() {
         mp.release()
     }
 
-    override fun onBind(intent: Intent): IBinder? {
-        return binder
-    }
+    override fun onBind(intent: Intent) = binder
 
     inner class MBinder : Binder() {
         val service: MusicPlayerService

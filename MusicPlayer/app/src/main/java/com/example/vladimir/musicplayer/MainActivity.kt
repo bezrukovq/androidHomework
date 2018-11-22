@@ -5,8 +5,8 @@ import android.content.SharedPreferences
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.preference.PreferenceManager
-import android.support.v7.widget.RecyclerView
 import android.view.Menu
+import kotlinx.android.synthetic.main.activity_main.*
 
 import java.util.ArrayList
 
@@ -17,9 +17,8 @@ class MainActivity : AppCompatActivity(), Callback, SharedPreferences.OnSharedPr
         setTheme(PrefTheme.getTheme(applicationContext))
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val mRecyclerView = findViewById<RecyclerView>(R.id.rv_songs)
         appAdapter = TrackAdapter(AppListDiffCallback(), this)
-        mRecyclerView.adapter = appAdapter
+        rv_songs.adapter = appAdapter
         appAdapter.submitList(myList)
         val prefs = PreferenceManager.getDefaultSharedPreferences(applicationContext)
         prefs.registerOnSharedPreferenceChangeListener(this)

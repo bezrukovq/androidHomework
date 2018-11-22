@@ -1,7 +1,6 @@
 package com.example.vladimir.musicplayer
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.support.v7.preference.PreferenceManager
 
 object PrefTheme {
@@ -14,7 +13,6 @@ object PrefTheme {
             "Dark" -> themeId = R.style.Dark
             "White" -> themeId = R.style.AppTheme
         }
-
         return themeId
     }
 }
