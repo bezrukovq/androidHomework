@@ -7,12 +7,10 @@ object PrefTheme {
     fun getTheme(context: Context): Int {
         val sharedPref = PreferenceManager.getDefaultSharedPreferences(context)
         val currentTheme = sharedPref.getString("theme", "def")
-        var themeId = R.style.AppTheme
-        when (currentTheme) {
-            "Yellow" -> themeId = R.style.Yellow
-            "Dark" -> themeId = R.style.Dark
-            "White" -> themeId = R.style.AppTheme
+        return when (currentTheme) {
+            "Yellow" -> R.style.Yellow
+            "Dark" -> R.style.Dark
+            else -> R.style.AppTheme
         }
-        return themeId
     }
 }

@@ -40,16 +40,14 @@ class MainActivity : AppCompatActivity(), Callback, SharedPreferences.OnSharedPr
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) = recreate()
 
     companion object {
-        val myList: ArrayList<Track>
-            get() {
-                val tracks = ArrayList<Track>()
-                tracks.add(Track("Bad Habbits", R.raw.bh, "They."))
-                tracks.add(Track("Fried Rice", R.raw.fr, "G-Easy"))
-                tracks.add(Track("Dancefloor Champion", R.raw.dc, "Yellow Claw"))
-                tracks.add(Track("Dancehal Soldier", R.raw.ds, "Yellow Claw"))
-                tracks.add(Track("Дедлайн", R.raw.ddl, "Научно-Технический реп"))
-                tracks.add(Track("Hello-World", R.raw.hw, "Научно-Технический реп"))
-                return tracks
-            }
+        val myList: ArrayList<Track> = ArrayList()
+        init {
+            myList.add(Track("Bad Habbits", R.raw.bh, "They."))
+            myList.add(Track("Fried Rice", R.raw.fr, "G-Easy"))
+            myList.add(Track("Dancefloor Champion", R.raw.dc, "Yellow Claw"))
+            myList.add(Track("Dancehal Soldier", R.raw.ds, "Yellow Claw"))
+            myList.add(Track("Дедлайн", R.raw.ddl, "Научно-Технический реп"))
+            myList.add(Track("Hello-World", R.raw.hw, "Научно-Технический реп"))
+        }
     }
 }

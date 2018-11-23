@@ -8,7 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 
-open class TrackAdapter (diffCallback: DiffUtil.ItemCallback<Track>, private var callback: Callback) : ListAdapter<Track, TrackAdapter.TrackHolder>(diffCallback) {
+open class TrackAdapter (diffCallback: DiffUtil.ItemCallback<Track>,
+                         private var callback: Callback) : ListAdapter<Track, TrackAdapter.TrackHolder>(diffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_view, parent, false)
